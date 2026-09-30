@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== PAGE META ===== -->
+  <title>Averaging Joe · Joe Van Deren, math tutor and educator</title>
+  <meta name="description" content="Joe Van Deren teaches high school and university math: one-on-one online tutoring in AP Calculus, AP Statistics, IB Math, SAT/ACT, and university courses, plus a free AP Calculus course on YouTube.">
+  <meta name="author" content="Joe Van Deren">
+  <meta name="theme-color" content="#1F2A3D">
+
+  <!-- Open Graph / link previews -->
+  <!-- PLACEHOLDER: replace og:url with your real domain once hosted. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Averaging Joe · Joe Van Deren, math tutor and educator">
+  <meta property="og:description" content="One-on-one online math tutoring (AP, IB, SAT/ACT, university) and a free AP Calculus course on YouTube.">
+  <meta property="og:url" content="https://YOUR-DOMAIN.com/">
+  <!-- PLACEHOLDER: og-image.jpg — 1200×630 px, JPG. Full URL required for previews. -->
+  <meta property="og:image" content="https://YOUR-DOMAIN.com/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Averaging Joe — Joe Van Deren, math tutor and educator">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Averaging Joe · Joe Van Deren">
+  <meta name="twitter:description" content="One-on-one online math tutoring and a free AP Calculus course on YouTube.">
+  <meta name="twitter:image" content="https://YOUR-DOMAIN.com/images/og-image.jpg">
+
+  <!-- Favicon: an x̄ (sample mean) on a marigold tile, inline SVG so no extra file is needed -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23E0A32E'/%3E%3Crect x='19' y='13' width='26' height='5' rx='2.5' fill='%231F2A3D'/%3E%3Ctext x='32' y='52' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='40' fill='%231F2A3D'%3Ex%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts: Bricolage Grotesque (headings, wordmark) + Source Serif 4 (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+       Palette: ink navy for text, warm white paper, marigold as the
+       single accent (the "bar" over Joe, buttons, progress), slate for
+       secondary text, and a faint sand tint for one alternating band.
+       ============================================================ */
+    :root {
+      --ink: #1F2A3D;
+      --ink-soft: #3A465A;
+      --slate: #5B6472;
+      --paper: #FDFBF7;
+      --sand: #F4EFE6;
+      --line: #E1DDD4;
+      --marigold: #E0A32E;
+      --marigold-deep: #B97F12;
+      --white: #FFFFFF;
+
+      --font-display: "Bricolage Grotesque", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+      --measure: 64ch;
+      --radius: 6px;
+      --pad: clamp(1.25rem, 5vw, 3rem);
+      --gap-section: clamp(4rem, 10vw, 7.5rem);
+    }
+
+    /* ---------- Reset & base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    img, svg, iframe { max-width: 100%; display: block; }
+    a { color: var(--ink); text-decoration-color: var(--marigold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+    a:hover { text-decoration-color: var(--ink); }
+    :focus-visible { outline: 3px solid var(--marigold); outline-offset: 3px; border-radius: 2px; }
+    p { margin: 0 0 1em; max-width: var(--measure); }
+    ul, ol { margin: 0 0 1em; padding-left: 1.2em; }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin: 0 0 .6em;
+      color: var(--ink);
+    }
+    h2 { font-size: clamp(1.75rem, 3.6vw, 2.5rem); max-width: 22ch; }
+    h3 { font-size: 1.2rem; margin-bottom: .35em; }
+    .lede { font-size: 1.2rem; color: var(--ink-soft); }
+
+    .wrap { width: min(100% - 2 * var(--pad), 1080px); margin-inline: auto; }
+    section { padding-block: var(--gap-section); }
+    .band { background: var(--sand); }
+
+    .skip-link {
+      position: absolute; left: 1rem; top: -4rem;
+      background: var(--ink); color: var(--white); padding: .6rem 1rem; border-radius: var(--radius);
+      font-family: var(--font-display); z-index: 100;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ---------- Wordmark: the bar over "Joe" is the sample-mean bar (x̄) ---------- */
+    .wordmark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .wordmark .bar {
+      position: relative;
+      display: inline-block;
+    }
+    .wordmark .bar::before {
+      content: "";
+      position: absolute;
+      left: .02em; right: .02em;
+      top: -0.12em;
+      height: .09em;
+      background: var(--marigold);
+      border-radius: 99px;
+      transform-origin: left center;
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+      padding: .8rem 1.25rem; border-radius: var(--radius);
+      text-decoration: none; border: 2px solid transparent; cursor: pointer;
+      line-height: 1.2;
+      transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .btn-primary { background: var(--marigold); color: var(--ink); border-color: var(--marigold); }
+    .btn-primary:hover { background: #E9B44A; border-color: #E9B44A; }
+    .btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
+    .btn-secondary:hover { background: var(--ink); color: var(--white); }
+    .btn-ink { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .btn-ink:hover { background: var(--ink-soft); border-color: var(--ink-soft); }
+    .btn svg { width: 1.1em; height: 1.1em; flex: none; }
+
+    /* ---------- Header / nav ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: color-mix(in srgb, var(--paper) 92%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; }
+    .site-header .wordmark { font-size: 1.35rem; }
+    .nav-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 2.75rem; height: 2.75rem; border: 0; background: transparent; cursor: pointer; color: var(--ink);
+      border-radius: var(--radius);
+    }
+    .nav-toggle svg { width: 1.5rem; height: 1.5rem; }
+    .nav-toggle .icon-close { display: none; }
+    .nav-toggle[aria-expanded="true"] .icon-open { display: none; }
+    .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
+    .site-nav { display: none; }
+    .site-nav.is-open {
+      display: block; position: absolute; left: 0; right: 0; top: 100%;
+      background: var(--paper); border-bottom: 1px solid var(--line);
+      padding: .5rem var(--pad) 1rem;
+    }
+    .site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .1rem; }
+    .site-nav a {
+      display: block; padding: .7rem .25rem;
+      font-family: var(--font-display); font-weight: 500; font-size: 1.05rem;
+      text-decoration: none; color: var(--ink-soft);
+    }
+    .site-nav a:hover { color: var(--ink); }
+    @media (min-width: 820px) {
+      .nav-toggle { display: none; }
+      .site-nav { display: block !important; position: static; background: none; border: 0; padding: 0; }
+      .site-nav ul { flex-direction: row; gap: 1.6rem; }
+      .site-nav a { padding: .25rem 0; font-size: .98rem; }
+      .site-nav a.nav-cta { color: var(--ink); text-decoration: underline; text-decoration-color: var(--marigold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero { padding-block: clamp(3rem, 8vw, 6rem) clamp(3rem, 8vw, 5.5rem); }
+    .hero .wrap { display: grid; gap: 2.5rem; align-items: center; }
+    .hero h1 { font-size: clamp(2.75rem, 9vw, 5.25rem); margin: 0 0 .25em; }
+    .hero h1 .wordmark { display: inline; }
+    .hero .name { font-family: var(--font-display); font-weight: 500; font-size: 1.05rem; color: var(--slate); margin: 0 0 .75rem; }
+    .hero .tagline { font-size: clamp(1.15rem, 2.2vw, 1.4rem); color: var(--ink-soft); max-width: 34ch; margin-bottom: 1.75rem; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: .75rem 1rem; align-items: center; }
+    .cta-row .text-link { font-family: var(--font-display); font-weight: 700; padding: .5rem 0; }
+    @media (min-width: 820px) {
+      .hero .wrap { grid-template-columns: 1.15fr .85fr; gap: 4rem; }
+    }
+    /* One orchestrated moment: the bar over "Joe" draws in on load. */
+    @keyframes draw-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    .hero .wordmark .bar::before { animation: draw-bar .7s cubic-bezier(.2,.7,.2,1) .35s both; }
+
+    /* ---------- Image placeholders ---------- */
+    /* Swap each .ph for the <img> in the adjacent HTML comment once you have the file. */
+    .ph {
+      display: grid; place-items: center; text-align: center;
+      border: 2px dashed var(--marigold-deep); border-radius: var(--radius);
+      background: repeating-linear-gradient(135deg, var(--sand) 0 12px, #EFE8DA 12px 24px);
+      color: var(--ink-soft); font-family: var(--font-display); font-size: .9rem; line-height: 1.45;
+      padding: 1rem;
+    }
+    .ph strong { display: block; color: var(--ink); font-size: 1rem; margin-bottom: .2rem; }
+    .ph code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .85em; }
+    .ph-headshot { aspect-ratio: 4 / 5; max-width: 420px; }
+    .ph-about { aspect-ratio: 4 / 3; }
+    .ph-wide { aspect-ratio: 16 / 9; }
+    .photo { border-radius: var(--radius); }
+
+    /* ---------- About (placeholder section) ---------- */
+    .about .wrap { display: grid; gap: 2.5rem; align-items: start; }
+    @media (min-width: 820px) { .about .wrap { grid-template-columns: .9fr 1.1fr; gap: 4rem; } }
+    .todo {
+      border-left: 4px solid var(--marigold); background: var(--white);
+      padding: 1rem 1.25rem; border-radius: 0 var(--radius) var(--radius) 0;
+      font-family: var(--font-display); color: var(--ink-soft);
+    }
+    .todo strong { color: var(--ink); }
+
+    /* ---------- Course ---------- */
+    .course .wrap { display: grid; gap: 2.5rem; }
+    @media (min-width: 820px) { .course .wrap { grid-template-columns: .9fr 1.1fr; gap: 4rem; align-items: start; } }
+    .video-frame {
+      position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden;
+      background: var(--ink);
+    }
+    .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .progress { margin: 1.5rem 0 1.75rem; max-width: 30rem; }
+    .progress-label { display: flex; justify-content: space-between; font-family: var(--font-display); font-weight: 500; font-size: .95rem; color: var(--ink-soft); margin-bottom: .5rem; }
+    .progress-label b { color: var(--ink); font-weight: 700; }
+    .progress-track { height: .6rem; background: var(--line); border-radius: 99px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 50%; background: var(--marigold); border-radius: 99px; }
+
+    /* ---------- Tutoring ---------- */
+    .subjects { display: grid; gap: 1.5rem 2.5rem; margin: 2rem 0 3rem; }
+    @media (min-width: 640px) { .subjects { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 960px) { .subjects { grid-template-columns: repeat(4, 1fr); } }
+    .subjects h3 { padding-bottom: .5rem; border-bottom: 2px solid var(--marigold); display: inline-block; }
+    .subjects ul { list-style: none; padding: 0; margin: 0; }
+    .subjects li { padding: .3rem 0; border-bottom: 1px solid var(--line); }
+    .subjects li:last-child { border-bottom: 0; }
+    .how { display: grid; gap: 2.5rem; align-items: center; }
+    @media (min-width: 820px) { .how { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+    .how dl { margin: 0; }
+    .how dt { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; margin-top: 1.1rem; }
+    .how dt:first-child { margin-top: 0; }
+    .how dd { margin: .2rem 0 0; color: var(--ink-soft); max-width: 48ch; }
+
+    /* ---------- Experience ---------- */
+    .experience .intro { display: grid; gap: 1.5rem; align-items: start; margin-bottom: 2.5rem; }
+    @media (min-width: 820px) { .experience .intro { grid-template-columns: 1fr auto; gap: 3rem; align-items: center; } }
+    .timeline { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+    .timeline li { display: grid; gap: .25rem .5rem; padding: 1.15rem 0; border-bottom: 1px solid var(--line); }
+    @media (min-width: 640px) { .timeline li { grid-template-columns: 9.5rem 1fr; gap: 1rem 2rem; } }
+    .timeline .when { font-family: var(--font-display); font-weight: 500; color: var(--slate); font-size: .95rem; padding-top: .15rem; }
+    .timeline .what { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; margin: 0 0 .15rem; }
+    .timeline p { margin: 0; color: var(--ink-soft); max-width: 60ch; }
+
+    /* ---------- Testimonials ---------- */
+    .quotes { display: grid; gap: 1.25rem; margin-top: 2rem; }
+    @media (min-width: 720px) { .quotes { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+    @media (min-width: 1040px) { .quotes { grid-template-columns: repeat(3, 1fr); } }
+    .quotes blockquote {
+      margin: 0; padding: 1.5rem 1.5rem 1.4rem;
+      background: var(--white); border-radius: var(--radius);
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .quotes blockquote p { font-size: 1.02rem; margin: 0; }
+    .quotes blockquote p::before { content: "\201C"; color: var(--marigold); font-family: var(--font-display); font-weight: 700; }
+    .quotes blockquote p::after { content: "\201D"; color: var(--marigold); font-family: var(--font-display); font-weight: 700; }
+    .quotes footer { margin-top: auto; font-family: var(--font-display); font-size: .92rem; color: var(--slate); line-height: 1.4; }
+    .quotes footer b { display: block; color: var(--ink); font-weight: 700; font-size: 1rem; }
+    .source-note { color: var(--slate); font-size: .98rem; }
+
+    /* ---------- Contact ---------- */
+    .contact .wrap { display: grid; gap: 2.5rem; }
+    @media (min-width: 820px) { .contact .wrap { grid-template-columns: .8fr 1.2fr; gap: 4rem; align-items: start; } }
+    form { display: grid; gap: 1.1rem; }
+    .field { display: grid; gap: .35rem; }
+    .field-row { display: grid; gap: 1.1rem; }
+    @media (min-width: 560px) { .field-row { grid-template-columns: 1fr 1fr; } }
+    label { font-family: var(--font-display); font-weight: 700; font-size: .98rem; }
+    label .opt { font-weight: 500; color: var(--slate); }
+    input, select, textarea {
+      font: inherit; font-size: 1rem; color: var(--ink);
+      padding: .7rem .8rem; border: 1.5px solid #C9C4B9; border-radius: var(--radius); background: var(--white);
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--ink); outline: 3px solid var(--marigold); outline-offset: 1px; }
+    textarea { min-height: 9rem; resize: vertical; }
+    .form-note { font-size: .95rem; color: var(--slate); margin: 0; }
+    .form-status { font-family: var(--font-display); font-weight: 500; margin: 0; min-height: 1.5em; }
+    .form-status[data-state="success"] { color: #1F6B4A; }
+    .form-status[data-state="error"] { color: #9B2C2C; }
+    .honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    /* ---------- Footer ---------- */
+    .site-footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3rem; font-size: .95rem; color: var(--slate); }
+    .site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; align-items: center; }
+    .site-footer .wordmark { font-size: 1.2rem; }
+    .site-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1.25rem; }
+    .site-footer a { color: var(--ink-soft); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="wordmark" href="#top" aria-label="Averaging Joe — home">Averaging <span class="bar">Joe</span></a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#course">AP Calculus course</a></li>
+          <li><a href="#tutoring">Tutoring</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a class="nav-cta" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="top" aria-labelledby="hero-heading">
+      <div class="wrap">
+        <div>
+          <p class="name">Joe Van Deren</p>
+          <h1 id="hero-heading"><span class="wordmark">Averaging <span class="bar">Joe</span></span></h1>
+          <p class="tagline">I teach high school and university math — one-on-one online, and through a free AP Calculus course on YouTube.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#course">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+              Watch the AP Calculus course
+            </a>
+            <a class="btn btn-secondary" href="#contact">Request tutoring</a>
+            <!-- PLACEHOLDER: resume.pdf — put your resume next to index.html (or update the path). -->
+            <a class="text-link" href="resume.pdf" target="_blank" rel="noopener">View my resume</a>
+          </div>
+        </div>
+
+        <!-- PLACEHOLDER: headshot.jpg — professional headshot, 800×1000 px (4:5 portrait), JPG, under ~200 KB.
+             When ready, delete the .ph div below and uncomment this:
+        <img class="photo" src="images/headshot.jpg" width="800" height="1000" alt="Joe Van Deren, smiling, in a professional headshot" loading="eager" fetchpriority="high">
+        -->
+        <div class="ph ph-headshot" role="img" aria-label="Placeholder for headshot photo">
+          <div><strong>headshot.jpg</strong>Professional headshot<br>800 × 1000 px (4:5)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="about band" id="about" aria-labelledby="about-heading">
+      <div class="wrap">
+        <!-- PLACEHOLDER: about.jpg — a casual photo, 1200×900 px (4:3), JPG.
+             When ready, delete the .ph div below and uncomment this:
+        <img class="photo" src="images/about.jpg" width="1200" height="900" alt="DESCRIBE THE PHOTO, e.g. Joe on the Camino de Santiago" loading="lazy">
+        -->
+        <div class="ph ph-about" role="img" aria-label="Placeholder for a casual photo">
+          <div><strong>about.jpg</strong>Casual photo<br>1200 × 900 px (4:3)</div>
+        </div>
+
+        <div>
+          <h2 id="about-heading">About</h2>
+          <!-- =========================================================
+               PLACEHOLDER: ABOUT COPY — Joe writes this section himself.
+               Replace the .todo block below with 2–4 short paragraphs.
+               ========================================================= -->
+          <div class="todo">
+            <strong>To do: write the About section.</strong><br>
+            Two to four short paragraphs in your own voice. Replace this box with them.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== YOUTUBE / AP CALCULUS COURSE ===================== -->
+    <section class="course" id="course" aria-labelledby="course-heading">
+      <div class="wrap">
+        <div>
+          <h2 id="course-heading">A free AP Calculus course on YouTube</h2>
+          <p class="lede">I'm building a 50-video AP Calculus course, one topic at a time. Every video is free to watch.</p>
+
+          <div class="progress" role="group" aria-labelledby="progress-label">
+            <div class="progress-label" id="progress-label"><span>Course progress</span><b>25 of 50 videos published</b></div>
+            <div class="progress-track" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="50" aria-label="25 of 50 videos published">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+
+          <p>The channel is where a lot of my teaching happens now. It has led to a job offer and to more than ten students choosing me as their tutor, and it doubles as a record of how I explain things.</p>
+          <div class="cta-row">
+            <a class="btn btn-ink" href="https://www.youtube.com/@AveragingJoe?sub_confirmation=1" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.5 12 31 31 0 0 0 23 7.2zM9.7 15.1V8.9l6 3.1z"/></svg>
+              Subscribe on YouTube
+            </a>
+            <a class="text-link" href="https://www.youtube.com/playlist?list=PLas_jyCztxB3Dy0QQPE6UPtM8NYL0fmA3" target="_blank" rel="noopener">Open the playlist on YouTube</a>
+          </div>
+        </div>
+
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/videoseries?list=PLas_jyCztxB3Dy0QQPE6UPtM8NYL0fmA3"
+            title="AP Calculus course playlist by Averaging Joe"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TUTORING ===================== -->
+    <section class="tutoring band" id="tutoring" aria-labelledby="tutoring-heading">
+      <div class="wrap">
+        <h2 id="tutoring-heading">One-on-one math tutoring</h2>
+        <p class="lede">I work with students from middle school through adult learners. These are the subjects I teach most often.</p>
+
+        <div class="subjects">
+          <div>
+            <h3>AP courses</h3>
+            <ul>
+              <li>AP Calculus AB</li>
+              <li>AP Calculus BC</li>
+              <li>AP Precalculus</li>
+              <li>AP Statistics</li>
+            </ul>
+          </div>
+          <div>
+            <h3>IB Diploma</h3>
+            <ul>
+              <li>IB Math AA SL</li>
+              <li>IB Math AA HL</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Test prep</h3>
+            <ul>
+              <li>SAT Math</li>
+              <li>ACT Math</li>
+            </ul>
+          </div>
+          <div>
+            <h3>University</h3>
+            <ul>
+              <li>Differential Equations</li>
+              <li>Linear Algebra</li>
+              <li>Statistics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="how">
+          <div>
+            <h3>How it works</h3>
+            <dl>
+              <dt>Online and one-on-one</dt>
+              <dd>We meet over Zoom or Google Meet and work through problems together on a digital whiteboard, so you can see every step as it happens.</dd>
+              <dt>Built around your course</dt>
+              <dd>Sessions follow your class, your exam calendar, and the things you're actually stuck on, from reviewing fundamentals to working through past AP and IB questions.</dd>
+              <dt>Rates</dt>
+              <dd>Contact me for rates. Tell me the subject and level and I'll get back to you.</dd>
+            </dl>
+            <p style="margin-top:1.5rem"><a class="btn btn-primary" href="#contact">Request tutoring</a></p>
+          </div>
+
+          <!-- PLACEHOLDER: whiteboard.jpg — a screenshot of your digital whiteboard from a session or video, 1600×900 px (16:9), JPG or PNG.
+               When ready, delete the .ph div below and uncomment this:
+          <img class="photo" src="images/whiteboard.jpg" width="1600" height="900" alt="A digital whiteboard from a tutoring session showing a worked calculus problem" loading="lazy">
+          -->
+          <div class="ph ph-wide" role="img" aria-label="Placeholder for a whiteboard screenshot">
+            <div><strong>whiteboard.jpg</strong>Screenshot of a session or video whiteboard<br>1600 × 900 px (16:9)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section class="experience" id="experience" aria-labelledby="experience-heading">
+      <div class="wrap">
+        <div class="intro">
+          <div>
+            <h2 id="experience-heading">Experience</h2>
+            <p class="lede">Math teacher and tutor since 2019, first in international-school classrooms and now online. Before teaching, I worked in sales.</p>
+          </div>
+          <!-- PLACEHOLDER: resume.pdf — see hero note. -->
+          <a class="btn btn-ink" href="resume.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            Download resume (PDF)
+          </a>
+        </div>
+
+        <ul class="timeline">
+          <li>
+            <span class="when">2022 – present</span>
+            <div>
+              <p class="what">Private math tutor</p>
+              <p>100+ students and 1,500+ hours of one-on-one tutoring, independently and through Wyzant, Differential1, and Atomicmind.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">2021 – 2022</span>
+            <div>
+              <p class="what">AP and IB math teacher, international school, Bolivia</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">2019 – 2020</span>
+            <div>
+              <p class="what">AP and IB math teacher, international school, Morocco</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">Before teaching</span>
+            <div>
+              <p class="what">Traveling sales representative</p>
+              <p>Raised my monthly sales average by 40%.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">Education</span>
+            <div>
+              <p class="what">B.S. in Engineering Science and Mathematics, Vanderbilt University</p>
+              <p>Minor in Engineering Management.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">Languages</span>
+            <div>
+              <p class="what">Bilingual in English and Spanish</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== TESTIMONIALS ===================== -->
+    <section class="testimonials band" id="testimonials" aria-labelledby="testimonials-heading">
+      <div class="wrap">
+        <h2 id="testimonials-heading">What students and parents say</h2>
+        <p class="source-note">All reviews are from Wyzant, where I tutor alongside my private practice.</p>
+
+        <div class="quotes">
+          <blockquote>
+            <p>Joe has a gift for making difficult concepts easier to understand, and he always meets me where I'm at. Whether it's reviewing fundamentals or tackling advanced AP questions, he makes sure I feel confident and supported every step of the way. What sets Joe apart is how much he genuinely cares about his students… Thanks to Joe, I felt really prepared for the AP Calc exam.</p>
+            <footer><b>Amira</b>AP Precalculus &amp; AP Calculus AB student<br>24 lessons</footer>
+          </blockquote>
+          <blockquote>
+            <p>Joe is kind, thorough and an exceptional tutor! My daughter is taking AP AB Calc this year with a teacher who doesn't really teach. Joe has been a wonderful support and thanks to him she is doing well and confident in class. He really goes above and beyond to make sure she feels prepared.</p>
+            <footer><b>Katy</b>Parent of an AP Calculus AB student<br>27 lessons</footer>
+          </blockquote>
+          <blockquote>
+            <p>He is a very knowledgeable tutor who is able to help you understand the 'why?' when it comes to Math instead of telling you to follow certain rules simply because they exist. He is also able to come up with manageable practice problems ON THE SPOT, which isn't an easy thing to do.</p>
+            <footer><b>Bernard</b>High school student, junior through senior year<br>33 lessons</footer>
+          </blockquote>
+          <blockquote>
+            <p>On their first meeting, Joe immediately understood my son's priorities and they got right to work. The time flew and my son rated it a 'ten.' He felt quite comfortable with Joe, who was incredibly knowledgeable, positive, and personable. Great fit!</p>
+            <footer><b>Carolyn</b>Parent<br>34 lessons</footer>
+          </blockquote>
+          <blockquote>
+            <p>Working with Joe made my statistics course a lot easier. I find myself understanding the material with his patience and efficiency, teaching in different ways and making time in his schedule to meet… Also, Joe's great demeanor makes it easy to ask questions.</p>
+            <footer><b>Nikhil</b>Statistics student<br>13 lessons</footer>
+          </blockquote>
+          <blockquote>
+            <p>Joe has done a great job helping with ACT review. Really appreciate his efforts with strategy, timing and studying tactics. Very knowledgeable and helpful on all subjects.</p>
+            <footer><b>Miriam</b>Parent, ACT prep<br>12 lessons</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="contact" id="contact" aria-labelledby="contact-heading">
+      <div class="wrap">
+        <div>
+          <h2 id="contact-heading">Get in touch</h2>
+          <p class="lede">Parents, students, and anyone hiring: send a note and I'll get back to you.</p>
+          <p>If you're asking about tutoring, include the subject and level and a little about what you're working toward. If the form gives you trouble, email me directly at <a href="mailto:jgvanderen64@gmail.com">jgvanderen64@gmail.com</a>.</p>
+        </div>
+
+        <!-- =========================================================
+             PLACEHOLDER: FORMSPREE ENDPOINT
+             1. Create a free form at https://formspree.io and copy its ID.
+             2. Replace YOUR_FORM_ID below (in the action attribute).
+             Until then, the form falls back to opening an email to you.
+             ========================================================= -->
+        <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="role">I am a…</label>
+            <select id="role" name="role" required>
+              <option value="" selected disabled>Choose one</option>
+              <option>Parent</option>
+              <option>Student</option>
+              <option>Employer or recruiter</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="subject">Subject and level <span class="opt">(optional)</span></label>
+            <input id="subject" name="subject_and_level" type="text" placeholder="e.g. AP Calculus BC, or Linear Algebra, second year">
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+
+          <!-- Honeypot for spam bots; Formspree ignores submissions where this is filled. -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="gotcha">Leave this empty</label>
+            <input id="gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <input type="hidden" name="_subject" value="New message from averagingjoe website">
+
+          <div>
+            <button class="btn btn-primary" type="submit">Send message</button>
+          </div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <p class="form-note">Prefer email? Write to <a href="mailto:jgvanderen64@gmail.com">jgvanderen64@gmail.com</a>.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="wordmark" href="#top">Averaging <span class="bar">Joe</span></a>
+      <ul>
+        <li><a href="https://www.youtube.com/@AveragingJoe" target="_blank" rel="noopener">YouTube</a></li>
+        <li><a href="mailto:jgvanderen64@gmail.com">Email</a></li>
+        <li><a href="resume.pdf">Resume</a></li>
+      </ul>
+      <span>© <span id="year">2026</span> Joe Van Deren</span>
+    </div>
+  </footer>
+
+  <script>
+    // Current year in the footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    (function () {
+      var btn = document.querySelector('.nav-toggle');
+      var nav = document.getElementById('site-nav');
+      btn.addEventListener('click', function () {
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        btn.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+        nav.classList.toggle('is-open', !open);
+      });
+      nav.addEventListener('click', function (e) {
+        if (e.target.tagName === 'A') {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Open menu');
+          nav.classList.remove('is-open');
+        }
+      });
+    })();
+
+    // Contact form: submit to Formspree without leaving the page.
+    // If the endpoint is still the placeholder, fall back to a mailto link.
+    (function () {
+      var form = document.getElementById('contact-form');
+      var status = document.getElementById('form-status');
+      var FALLBACK_EMAIL = 'jgvanderen64@gmail.com';
+
+      function setStatus(msg, state) {
+        status.textContent = msg;
+        status.setAttribute('data-state', state || '');
+      }
+
+      function mailtoFallback(data) {
+        var body = 'Name: ' + data.get('name') + '\nEmail: ' + data.get('email') +
+          '\nI am a: ' + data.get('role') + '\nSubject and level: ' + (data.get('subject_and_level') || '—') +
+          '\n\n' + data.get('message');
+        var href = 'mailto:' + FALLBACK_EMAIL +
+          '?subject=' + encodeURIComponent('Message from averagingjoe website') +
+          '&body=' + encodeURIComponent(body);
+        window.location.href = href;
+        setStatus('Opening your email app to send this message.', '');
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        var data = new FormData(form);
+        var action = form.getAttribute('action');
+
+        if (action.indexOf('YOUR_FORM_ID') !== -1) { mailtoFallback(data); return; }
+
+        setStatus('Sending…', '');
+        fetch(action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+          .then(function (res) {
+            if (res.ok) {
+              form.reset();
+              setStatus('Sent. Thanks — I\'ll get back to you soon.', 'success');
+            } else {
+              setStatus('The form couldn\'t be sent. Please email ' + FALLBACK_EMAIL + ' instead.', 'error');
+            }
+          })
+          .catch(function () {
+            setStatus('The form couldn\'t be sent. Please email ' + FALLBACK_EMAIL + ' instead.', 'error');
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
